@@ -1,0 +1,24 @@
+﻿{
+  "_comment": "Modelo inicial baseado na Situação de Aprendizagem. Confirmar a sintaxe suportada pelo Google Antigravity antes de usar.",
+  "mcpServers": {
+    "database": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "src/database/eam.sqlite"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "src"]
+    }
+  },
+  "skills": [
+    {
+      "name": "auditar_codigo",
+      "trigger": "/auditar",
+      "description": "Auditar XSS, privacidade/LGPD, Clean Code e comentários em pt-BR."
+    }
+  ],
+  "humanInTheLoop": {
+    "enabled": true,
+    "requireApprovalFor": ["database_changes", "deletions"]
+  }
+}

@@ -1,0 +1,17 @@
+﻿# Dependências e ambientes locais
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Banco local e dados gerados; versionar apenas schema/migrations sem dados reais
+src/database/*.sqlite
+src/database/*.sqlite-*
+
+# Saídas locais
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+coverage/
+dist/

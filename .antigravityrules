@@ -1,0 +1,11 @@
+﻿# Regras do projeto EAM
+
+- Idioma de código, comentários e documentação: português do Brasil (pt-BR).
+- Priorizar Clean Code, funções concisas (até 20 linhas, conforme roteiro) e separação entre regras de negócio e interface.
+- Stack prevista no roteiro: HTML5 semântico, CSS3 responsivo e JavaScript sem frameworks externos pesados.
+- Nunca incluir credenciais fixas no código; usar variáveis de ambiente e manter segredos fora do Git.
+- Proteger dados pessoais. Painéis operacionais não exibem nome completo nem dados sensíveis desnecessários.
+- Tratar conteúdo do usuário como texto não confiável para prevenir XSS.
+- Toda mudança de status registra responsável, data/hora e justificativa.
+- Ações destrutivas ou alterações do banco requerem validação humana.
+- Identificar claramente funcionalidades simuladas e testes que não foram executados.

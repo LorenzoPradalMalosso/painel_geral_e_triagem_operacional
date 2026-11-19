@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build-pages.js",
+    "start": "node src/server/server.js",
+    "dev:demo": "node src/server/server.js --demo",
     "dev:pages": "npm run build && wrangler pages dev public",
     "deploy": "npm run build && wrangler pages deploy public --project-name integra-eam-senai"
   },

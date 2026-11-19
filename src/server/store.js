@@ -1,6 +1,6 @@
 const { DatabaseSync } = require('node:sqlite');
 const { randomBytes, createHash, scryptSync, timingSafeEqual } = require('node:crypto');
-const { categories, demoTickets } = require('./domain');
+const { categories, demoTickets } = require('../shared/domain');
 
 const digest = token => createHash('sha256').update(token).digest('hex');
 const hashPassword = (password, salt) => scryptSync(password, salt, 64);

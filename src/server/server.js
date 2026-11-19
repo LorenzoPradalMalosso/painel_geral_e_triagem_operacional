@@ -3,7 +3,7 @@ const { readFile } = require('node:fs/promises');
 const path = require('node:path');
 const { randomUUID, createHash } = require('node:crypto');
 const { openStore } = require('./store');
-const { sectors, priorities, transitions, roles, isClosed, manages, canSee, canEdit, duplicateCandidates } = require('./domain');
+const { sectors, priorities, transitions, roles, isClosed, manages, canSee, canEdit, duplicateCandidates } = require('../shared/domain');
 
 const demo = process.argv.includes('--demo');
 const host = demo ? '127.0.0.1' : process.env.EAM_HOST || '127.0.0.1';
@@ -12,11 +12,11 @@ const secure = process.env.EAM_SECURE_COOKIE === '1';
 if (!demo && !['127.0.0.1', '::1', 'localhost'].includes(host) && !secure) {
   throw new Error('Configure HTTPS e EAM_SECURE_COOKIE=1 antes de expor o servidor na rede.');
 }
-const store = openStore(demo ? ':memory:' : process.env.EAM_DATABASE || path.join(__dirname, 'eam.sqlite'), demo);
+const store = openStore(demo ? ':memory:' : process.env.EAM_DATABASE || path.join(__dirname, '..', '..', 'data', 'eam.sqlite'), demo);
 const assets = {
-  '/': ['code.html', 'text/html'],
-  '/code.html': ['code.html', 'text/html'],
-  '/monitor': ['code.html', 'text/html'],
+  '/': ['index.html', 'text/html'],
+  '/index.html': ['index.html', 'text/html'],
+  '/monitor': ['index.html', 'text/html'],
   '/app.js': ['app.js', 'text/javascript'],
   '/ui.js': ['ui.js', 'text/javascript'],
   '/styles.css': ['styles.css', 'text/css']
@@ -252,7 +252,7 @@ http.createServer(async (req, res) => {
     if (url.pathname === '/favicon.ico' && ['GET', 'HEAD'].includes(req.method)) return res.writeHead(204).end();
     const asset = Object.hasOwn(assets, url.pathname) && assets[url.pathname];
     if (!asset || !['GET', 'HEAD'].includes(req.method)) fail(404, 'Página não encontrada.');
-    const data = await readFile(path.join(__dirname, asset[0]));
+    const data = await readFile(path.join(__dirname, '..', 'client', asset[0]));
     res.writeHead(200, { 'Content-Type': asset[1] + '; charset=utf-8' });
     res.end(req.method === 'HEAD' ? undefined : data);
   } catch (error) {
