@@ -2,7 +2,15 @@
 
 Central web do SENAI 2026 para registrar, encaminhar, acompanhar e resolver chamados internos.
 
-## Demonstração
+## Cloudflare Pages
+
+O site está publicado em <https://integra-eam-senai.pages.dev>. A interface é servida pelo Pages, as rotas da API rodam em Pages Functions e os chamados são persistidos no D1 `integra-eam`.
+
+O projeto foi preparado para deploy direto. `npm run build` prepara os arquivos públicos e `npm run deploy` publica no Pages. A configuração D1 está em `wrangler.jsonc` e o esquema inicial em `migrations/0001_init.sql`. Para outro ambiente, crie um banco D1, atualize o identificador no arquivo, aplique as migrações com `wrangler d1 migrations apply integra-eam --remote` e publique.
+
+No primeiro acesso, crie a conta administradora. A configuração inicial se bloqueia assim que essa conta é criada. Em seguida, cadastre a equipe em Configurações.
+
+## Demonstração local
 
 Com Node.js 24, execute na pasta do painel:
 

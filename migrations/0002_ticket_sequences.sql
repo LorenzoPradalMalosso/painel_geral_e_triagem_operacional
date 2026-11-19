@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ticket_sequences (year INTEGER PRIMARY KEY, last_number INTEGER NOT NULL);

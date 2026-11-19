@@ -12,7 +12,7 @@ const pages = {
 };
 const state = { user: null, tickets: [], scope: 'all', page: 1, view: 'triagem', seen: '', snapshot: '', generation: 0 };
 const rowsPerPage = 7;
-const publicMode = location.pathname === '/monitor' || location.hash === '#monitor';
+const publicMode = location.pathname.replace(/\/$/, '') === '/monitor' || location.hash === '#monitor';
 const filters = $('#filters');
 const newForm = $('#new-form');
 const ticketForm = $('#ticket-form');

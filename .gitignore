@@ -1,3 +1,6 @@
 eam.sqlite
 eam.sqlite-shm
 eam.sqlite-wal
+node_modules/
+.wrangler/
+public/
