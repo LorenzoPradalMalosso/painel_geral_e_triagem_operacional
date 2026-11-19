@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102640">
+  <title>INTEGRA EAM · Central de Operações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&amp;family=Lato:wght@400;700;900&amp;family=Source+Code+Pro:wght@500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;500&amp;display=block">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main-content">Ir para o conteúdo</a>
+  <noscript><p class="loading">Ative o JavaScript para acessar o INTEGRA EAM.</p></noscript>
+  <p id="boot" class="loading" role="status">Carregando INTEGRA EAM…</p>
+
+  <section id="access" class="access" hidden>
+    <div class="access-art">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span><strong>INTEGRA<span> EAM</span></strong><small>SENAI · 2026</small></span></div>
+      <div class="access-title"><span class="eyebrow">Gestão de chamados internos</span><strong>Central de<br>operações<span>.</span></strong><p>Da abertura ao atendimento, com prioridade, responsável e histórico em um só lugar.</p></div>
+      <div class="access-drawing" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+    </div>
+    <div class="access-body">
+      <div class="access-form">
+        <h1 id="access-title">Acesse seu ambiente</h1>
+        <p id="access-description" class="muted">Entre com a conta da sua equipe.</p>
+        <form id="login-form" class="form-stack">
+          <label id="setup-name" hidden>Nome completo<input name="name" maxlength="100" autocomplete="name"></label>
+          <label>E-mail<input name="email" type="email" maxlength="160" autocomplete="username" required></label>
+          <label id="setup-sector" hidden>Setor<select name="sector"></select></label>
+          <label>Senha<input name="password" type="password" maxlength="128" autocomplete="current-password" required></label>
+          <p class="form-error" role="alert" hidden></p>
+          <button class="button primary" id="login-submit">Entrar</button>
+        </form>
+        <form id="demo-form" class="form-stack demo-form" hidden>
+          <label>Perfil de demonstração<select name="role"></select></label>
+          <p class="form-error" role="alert" hidden></p>
+          <button class="button secondary">Acessar demonstração</button>
+        </form>
+        <a class="access-link" href="/monitor">Abrir painel público <span class="icon" aria-hidden="true">arrow_outward</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="workspace" class="workspace" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="#triagem" aria-label="INTEGRA EAM, visão geral"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span><strong>INTEGRA<span> EAM</span></strong><small>SENAI · 2026</small></span></a>
+      <nav class="navigation" aria-label="Navegação principal">
+        <span class="nav-caption">OPERAÇÃO</span>
+        <a href="#triagem" data-page="triagem"><span class="icon" aria-hidden="true">space_dashboard</span><span>Visão geral</span></a>
+        <a href="#chamados" data-page="chamados"><span class="icon" aria-hidden="true">list_alt</span><span>Chamados</span><span id="nav-count" class="nav-count"></span></a>
+        <a href="#setores" data-page="setores"><span class="icon" aria-hidden="true">corporate_fare</span><span>Setores</span></a>
+        <a href="#auditoria" data-page="auditoria"><span class="icon" aria-hidden="true">history</span><span>Atividade</span></a>
+        <a id="settings-link" href="#configuracoes" data-page="configuracoes" aria-label="Configurações" hidden><span class="icon" aria-hidden="true">settings</span><span class="nav-long">Configurações</span><span class="nav-short">Ajustes</span></a>
+      </nav>
+      <div class="sidebar-foot">
+        <a class="monitor-link" href="/monitor" target="_blank" rel="noopener" aria-label="Painel público, abre em nova aba"><span class="icon" aria-hidden="true">desktop_windows</span><span>Painel público</span><span class="icon external" aria-hidden="true">arrow_outward</span></a>
+        <div class="profile"><span id="avatar" class="avatar"></span><span class="profile-text"><strong id="user-name"></strong><small id="user-role"></small></span><button class="icon-button logout" type="button" data-action="logout" aria-label="Sair" title="Sair"><span class="icon" aria-hidden="true">logout</span></button></div>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Operação</span><span class="icon" aria-hidden="true">chevron_right</span><strong id="crumb">Visão geral</strong></div>
+        <div class="top-actions"><span id="demo-label" class="environment" hidden>Demonstração</span><span id="connection" class="connection"><i></i>Atualizando</span>
+          <button class="icon-button notify-button" type="button" data-action="notifications" aria-label="Notificações" title="Notificações"><span class="icon" aria-hidden="true">notifications</span><i id="notify-dot" hidden></i></button>
+          <button class="button primary" type="button" data-action="new"><span class="icon" aria-hidden="true">add</span>Novo chamado</button>
+        </div>
+      </header>
+
+      <main id="main-content" tabindex="-1" class="content">
+        <div id="workspace-error" class="banner error-banner" role="alert" hidden><span id="workspace-error-text"></span><button type="button" class="button secondary small" data-action="retry">Tentar novamente</button></div>
+        <section id="overview">
+          <section class="hero" aria-labelledby="dashboard-title">
+            <div class="hero-copy"><p class="eyebrow"><i></i> CENTRAL DE OPERAÇÕES</p><h1 id="dashboard-title">Visão geral<span>.</span></h1><p>Chamados internos, atendimento e prioridades em um só painel.</p></div>
+            <div class="hero-signal">
+              <div class="signal-art" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+              <div class="signal-info" id="hero-signal"></div>
+            </div>
+          </section>
+          <section id="metrics" class="metrics" aria-label="Indicadores da operação"></section>
+        </section>
+
+        <section id="page-intro" class="page-intro" hidden><h1 id="page-title"></h1><p id="page-description"></p></section>
+        <div id="queue-layout" class="queue-layout">
+          <section id="queue" class="panel queue" aria-labelledby="queue-title">
+            <div class="panel-heading"><div><h2 id="queue-title">Fila de chamados</h2><p>Acompanhe e organize as ocorrências.</p></div><button class="button secondary small" type="button" data-action="export"><span class="icon" aria-hidden="true">download</span>Exportar CSV</button></div>
+            <div class="queue-tabs" aria-label="Exibição da fila">
+              <button data-scope="all" aria-pressed="true" type="button">Todos <span id="count-all"></span></button>
+              <button data-scope="open" aria-pressed="false" type="button">Em aberto <span id="count-open"></span></button>
+              <button data-scope="closed" aria-pressed="false" type="button">Encerrados <span id="count-closed"></span></button>
+            </div>
+            <form id="filters" class="filter-bar" role="search" aria-label="Filtros da fila">
+              <label class="search"><span class="icon" aria-hidden="true">search</span><input name="query" type="search" aria-label="Buscar chamados" placeholder="Buscar chamado, local ou protocolo…"></label>
+              <select name="sector" aria-label="Filtrar por setor"></select>
+              <details class="filter-details"><summary class="button secondary small"><span class="icon" aria-hidden="true">tune</span>Filtros <span id="filter-count" hidden></span></summary>
+                <div class="filter-pop">
+                  <label>Prioridade<select name="priority"></select></label>
+                  <label>Status<select name="status"></select></label>
+                  <label>De<input name="from" type="date"></label>
+                  <label>Até<input name="to" type="date"></label>
+                  <button class="button secondary small" data-action="clear" type="button">Limpar filtros</button>
+                </div>
+              </details>
+            </form>
+            <div class="table-wrap"><table class="ticket-table" aria-label="Chamados filtrados">
+              <thead><tr><th scope="col">Ocorrência / Protocolo</th><th scope="col">Setor</th><th scope="col">Prioridade</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Abrir chamado</span></th></tr></thead>
+              <tbody id="ticket-rows"></tbody>
+            </table></div>
+            <div class="queue-footer"><p id="result-count" aria-live="polite"></p><div class="pagination"><button type="button" data-action="prev" class="icon-button" aria-label="Página anterior"><span class="icon" aria-hidden="true">chevron_left</span></button><span id="page-number"></span><button type="button" data-action="next" class="icon-button" aria-label="Próxima página"><span class="icon" aria-hidden="true">chevron_right</span></button></div></div>
+          </section>
+          <aside id="overview-aside" class="overview-aside" aria-label="Resumo da operação">
+            <section class="panel sector-summary"><div class="panel-heading"><div><h2>Demanda por setor</h2><p>Distribuição de chamados ativos</p></div><span class="panel-icon icon" aria-hidden="true">bar_chart</span></div><div id="sector-bars" class="sector-bars"></div><a class="panel-link" href="#setores">Ver setores <span class="icon" aria-hidden="true">arrow_forward</span></a></section>
+            <section class="safety-card"><span class="icon" aria-hidden="true">health_and_safety</span><div><h2>Protocolo de segurança</h2><p>Em risco à vida, acione a brigada ou os canais oficiais de emergência. O chamado não aciona socorro.</p></div></section>
+          </aside>
+        </div>
+        <section id="sector-view" class="sector-view" aria-label="Painéis setoriais" hidden></section>
+        <section id="audit-view" class="panel audit-view" aria-label="Histórico de atividade" hidden></section>
+        <section id="admin-view" class="admin-view" hidden>
+          <section class="panel settings-panel"><div class="panel-heading"><div><h2>Contas da equipe</h2><p>Cadastre pessoas e defina o perfil de acesso.</p></div><button class="button secondary small" type="button" data-action="add-user">Nova conta</button></div><div id="user-list" class="settings-list"></div></section>
+          <section class="panel settings-panel"><div class="panel-heading"><div><h2>Categorias e encaminhamento</h2><p>Configure o setor responsável e a prioridade inicial por categoria.</p></div><button class="button secondary small" type="button" data-action="add-category">Nova categoria</button></div><div id="category-list" class="settings-list"></div></section>
+          <section id="legacy-panel" class="panel settings-panel" hidden><div class="panel-heading"><div><h2>Registros do protótipo anterior</h2><p>Faça uma cópia dos dados guardados neste navegador.</p></div><button class="button secondary small" type="button" data-action="legacy">Exportar JSON</button></div></section>
+        </section>
+        <footer class="main-footer"><span>INTEGRA EAM <span>·</span> SENAI 2026</span><span>Gestão de chamados internos</span></footer>
+      </main>
+    </div>
+  </div>
+
+  <main id="public-monitor" class="public-monitor" hidden>
+    <header class="monitor-header"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span><strong>INTEGRA<span> EAM</span></strong><small>SENAI · 2026</small></span></a><span id="monitor-clock" class="mono"></span></header>
+    <div class="monitor-heading"><div><p class="eyebrow">Painel público</p><h1>Operação por setor<span>.</span></h1><p>Acompanhamento de chamados ativos.</p></div><label>Setor<select id="monitor-sector"></select></label></div>
+    <p id="monitor-error" class="banner error-banner" role="alert" hidden></p>
+    <div id="monitor-grid" class="monitor-grid"></div>
+    <footer class="monitor-footer"><span id="monitor-updated" role="status"></span><a href="/">Abrir ambiente interno <span class="icon" aria-hidden="true">arrow_outward</span></a></footer>
+  </main>
+
+  <dialog id="new-dialog" aria-labelledby="new-title">
+    <div class="dialog-head"><div><h2 id="new-title">Novo chamado</h2><p>Informe a ocorrência para encaminhá-la à equipe responsável.</p></div><button type="button" data-action="close" class="icon-button" aria-label="Fechar"><span class="icon" aria-hidden="true">close</span></button></div>
+    <form id="new-form" class="form-stack dialog-body">
+      <label>Assunto<input name="title" required minlength="3" maxlength="140" placeholder="Ex.: Catraca travada na portaria" autofocus></label>
+      <div class="form-grid"><label>Local<input name="local" required minlength="2" maxlength="160" placeholder="Ex.: Bloco C, oficina"></label><label>Categoria<select name="categoryId" required></select></label></div>
+      <p id="route-hint" class="route-hint"></p>
+      <label>Detalhes da ocorrência <span class="optional">opcional</span><textarea name="description" rows="3" maxlength="2000"></textarea></label>
+      <label class="check-row"><input name="risk" type="checkbox"><span><strong>Há risco imediato de acidente?</strong><small>Ocorrências de risco recebem prioridade máxima.</small></span></label>
+      <p id="risk-warning" class="banner error-banner" role="status" hidden>Em risco à vida, acione imediatamente a brigada ou os canais oficiais de emergência. O chamado não aciona socorro.</p>
+      <label id="duplicate-warning" class="check-row duplicate-warning" hidden><input name="duplicate" type="checkbox"><span><strong>Possível duplicidade</strong><small id="duplicate-message"></small><small>Confirmo que preciso registrar um novo chamado.</small></span></label>
+      <p class="form-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button class="button secondary" type="button" data-action="close">Cancelar</button><button class="button primary">Registrar chamado</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="ticket-dialog" class="drawer" aria-labelledby="ticket-title">
+    <div class="dialog-head"><div><p id="ticket-code" class="mono"></p><h2 id="ticket-title"></h2></div><button type="button" data-action="close" class="icon-button" aria-label="Fechar"><span class="icon" aria-hidden="true">close</span></button></div>
+    <div class="dialog-body">
+      <div id="ticket-summary"></div>
+      <form id="ticket-form" class="form-stack">
+        <h3>Gerenciar atendimento</h3>
+        <div class="form-grid"><label>Status<select name="status" required></select></label><label>Prioridade<select name="priority" required></select></label>
+          <label>Setor<select name="sector" required></select></label><label>Responsável<input name="owner" required minlength="2" maxlength="100"></label></div>
+        <button id="assume-button" type="button" class="button secondary small" data-action="assume">Assumir chamado</button>
+        <label>Justificativa<textarea name="reason" rows="2" required minlength="3" maxlength="1200"></textarea></label>
+        <label id="resolution-field" hidden>Solução executada<textarea name="resolution" rows="2" minlength="3" maxlength="2000"></textarea></label>
+        <p class="form-error" role="alert" hidden></p>
+        <div class="dialog-actions"><button class="button primary">Salvar alteração</button></div>
+      </form>
+      <section class="ticket-history"><h3>Histórico</h3><ol id="ticket-history" class="timeline"></ol></section>
+    </div>
+  </dialog>
+
+  <dialog id="notifications-dialog" aria-labelledby="notifications-title">
+    <div class="dialog-head"><div><h2 id="notifications-title">Notificações</h2><p>Atualizações nos chamados que você acompanha.</p></div><button type="button" data-action="close" class="icon-button" aria-label="Fechar"><span class="icon" aria-hidden="true">close</span></button></div>
+    <div class="dialog-body"><ol id="notification-list" class="timeline"></ol></div>
+  </dialog>
+
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-head"><h2 id="settings-title"></h2><button type="button" data-action="close" class="icon-button" aria-label="Fechar"><span class="icon" aria-hidden="true">close</span></button></div>
+    <div class="dialog-body">
+      <form id="user-form" class="form-stack" hidden>
+        <label>Nome<input name="name" required minlength="2" maxlength="100"></label><label>E-mail<input name="email" type="email" required maxlength="160"></label>
+        <div class="form-grid"><label>Perfil<select name="role" required></select></label><label>Setor<select name="sector" required></select></label></div>
+        <label>Senha inicial<input name="password" type="password" minlength="12" maxlength="128" autocomplete="new-password" required></label>
+        <p class="form-error" role="alert" hidden></p><div class="dialog-actions"><button class="button primary">Criar conta</button></div>
+      </form>
+      <form id="category-form" class="form-stack" hidden>
+        <label>Categoria<input name="name" required minlength="2" maxlength="80"></label>
+        <div class="form-grid"><label>Setor de destino<select name="sector" required></select></label><label>Prioridade inicial<select name="priority" required></select></label></div>
+        <p class="form-error" role="alert" hidden></p><div class="dialog-actions"><button class="button primary">Salvar categoria</button></div>
+      </form>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
